@@ -53,7 +53,21 @@ jobs:
           EOF
 
       - name: Python syntax check
-        run: python3 -m py_compile scripts/loop_core.py scripts/stop-hook.py scripts/guard-hook.py scripts/loop-ctl.py scripts/workflows/floating_swarm.py
+        run: |
+          python3 -m py_compile scripts/loop_core.py scripts/stop-hook.py scripts/guard-hook.py scripts/loop-ctl.py
+          python3 - <<'EOF'
+          import ast
+          from pathlib import Path
+
+          path = Path("scripts/workflows/floating_swarm.py")
+          compile(
+              path.read_text(encoding="utf-8"),
+              str(path),
+              "exec",
+              flags=ast.PyCF_ALLOW_TOP_LEVEL_AWAIT,
+          )
+          print(f"{path} compiled with top-level await")
+          EOF
 
       - name: Shell syntax check
         run: bash -n scripts/floating-loop.sh tests/run_all.sh tests/test_external_loop.sh tests/test_e2e_live.sh

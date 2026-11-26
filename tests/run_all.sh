@@ -14,6 +14,19 @@ agy plugin validate . --strict
 echo ""
 echo "=== 2/4: Python Syntax & Bytecode Check ==="
 python3 -m py_compile scripts/loop_core.py scripts/stop-hook.py scripts/guard-hook.py scripts/loop-ctl.py
+python3 - <<'EOF'
+import ast
+from pathlib import Path
+
+path = Path("scripts/workflows/floating_swarm.py")
+compile(
+    path.read_text(encoding="utf-8"),
+    str(path),
+    "exec",
+    flags=ast.PyCF_ALLOW_TOP_LEVEL_AWAIT,
+)
+print(f"{path} compiled with top-level await")
+EOF
 echo "OK"
 
 echo ""
