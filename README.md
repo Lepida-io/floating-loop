@@ -53,19 +53,25 @@
 ## Installation
 
 ### Prerequisites
-- [Google Antigravity CLI (`agy`)](https://antigravity.google) installed and authenticated
+- [Google Antigravity CLI (`agy`)](https://antigravity.google/docs/getting-started/) installed and authenticated ([download Antigravity](https://antigravity.google/download))
 - Python `3.8+` (stdlib only — no `pip install`, `jq`, or Node required)
 - `bash` 3.2+ and `git`
 
-### Install from GitHub (Recommended)
+### Install from the Antigravity Plugin Marketplace
+
+Partner install id: `floating-loop@antigravity-plugins-partners`
+
+```bash
+agy plugin install floating-loop@antigravity-plugins-partners
+```
+
+Or open [Floating Loop in the Antigravity Marketplace](antigravity://customizations/marketplaces/antigravity-plugins-partners/plugins/floating-loop) (**Customizations → Marketplace**). The catalog card is on the [Marketplace plugins page](https://antigravity.google/docs/marketplace/?plugin=floating-loop#browse-marketplace-plugins).
+
+### Install from GitHub
 
 ```bash
 agy plugin install https://github.com/Lepida-io/floating-loop
 ```
-
-### Install from the Antigravity Plugin Marketplace
-
-Open the **Antigravity App**, go to **Customizations → Marketplace**, search for **Floating Loop**, and click **Add**.
 
 ### Local Development / Clone
 
@@ -151,6 +157,8 @@ Ask Antigravity to activate the `floating-swarm` skill, which validates your `pr
 ```text
 floating-loop/                          # Native Antigravity plugin root
 ├── plugin.json                         # Plugin manifest (Marketplace + `agy plugin install`)
+├── assets/
+│   └── logo.svg                        # 128×128 transparent Marketplace icon
 ├── hooks.json                          # Antigravity Stop + PreToolUse lifecycle hooks
 ├── rules/
 │   └── AGENTS.md                       # Loop discipline, promise integrity, backpressure rules

@@ -2,7 +2,7 @@
   "$schema": "https://antigravity.google/schemas/v1/plugin.json",
   "name": "floating-loop",
   "displayName": "Floating Loop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Autonomous Ralph-inspired iterative loops, keep-or-revert autoresearch, and parallel multi-agent worktree swarms built natively for Google Antigravity.",
   "logo": "assets/logo.svg",
   "author": {
