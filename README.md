@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Artitus/floating-loop/actions/workflows/ci.yml"><img src="https://github.com/Artitus/floating-loop/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/Lepida-io/floating-loop/actions/workflows/ci.yml"><img src="https://github.com/Lepida-io/floating-loop/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/Antigravity-Native%20Plugin-38BDF8.svg" alt="Google Antigravity Native Plugin" />
   <img src="https://img.shields.io/badge/dependencies-zero%20(Python%203.8%2B%20stdlib)-818CF8.svg" alt="Zero External Dependencies" />
@@ -60,7 +60,7 @@
 ### Install from GitHub (Recommended)
 
 ```bash
-agy plugin install https://github.com/Artitus/floating-loop
+agy plugin install https://github.com/Lepida-io/floating-loop
 ```
 
 ### Install from the Antigravity Plugin Marketplace
@@ -70,7 +70,7 @@ Open the **Antigravity App**, go to **Customizations → Marketplace**, search f
 ### Local Development / Clone
 
 ```bash
-git clone https://github.com/Artitus/floating-loop.git
+git clone https://github.com/Lepida-io/floating-loop.git
 cd floating-loop
 agy plugin validate . --strict
 agy plugin install .

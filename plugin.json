@@ -6,11 +6,11 @@
   "description": "Autonomous Ralph-inspired iterative loops, keep-or-revert autoresearch, and parallel multi-agent worktree swarms built natively for Google Antigravity.",
   "logo": "assets/logo.svg",
   "author": {
-    "name": "Mason Herbel",
-    "url": "https://github.com/Artitus"
+    "name": "Lepida",
+    "url": "https://github.com/Lepida-io"
   },
-  "homepage": "https://github.com/Artitus/floating-loop",
-  "repository": "https://github.com/Artitus/floating-loop",
+  "homepage": "https://github.com/Lepida-io/floating-loop",
+  "repository": "https://github.com/Lepida-io/floating-loop",
   "license": "MIT",
   "keywords": [
     "ralph-loop",
