@@ -1,0 +1,30 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "floating-loop",
+  "displayName": "Floating Loop",
+  "version": "0.1.0",
+  "description": "Autonomous Ralph-inspired iterative loops, keep-or-revert autoresearch, and parallel multi-agent worktree swarms built natively for Google Antigravity.",
+  "logo": "assets/logo.svg",
+  "author": {
+    "name": "Mason Herbel",
+    "url": "https://github.com/Artitus"
+  },
+  "homepage": "https://github.com/Artitus/floating-loop",
+  "repository": "https://github.com/Artitus/floating-loop",
+  "license": "MIT",
+  "keywords": [
+    "ralph-loop",
+    "autonomous-loop",
+    "multi-agent",
+    "swarm",
+    "worktree",
+    "autoresearch",
+    "prd",
+    "antigravity"
+  ],
+  "suggestedPrompts": [
+    "Write a dependency-aware PRD for my next feature and convert it to prd.json",
+    "Start a floating-loop Stop hook with Dual-Gate verification until tests pass",
+    "Run a parallel worktree DAG swarm on prd.json with an Adversarial Verifier"
+  ]
+}

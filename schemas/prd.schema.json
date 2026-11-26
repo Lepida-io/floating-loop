@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/floating-loop/schemas/prd.schema.json",
+  "title": "Floating Loop PRD Task List",
+  "description": "Structured dependency-aware user story backlog for Floating Loop autonomous execution.",
+  "type": "object",
+  "required": ["project", "branchName", "description", "userStories"],
+  "additionalProperties": true,
+  "properties": {
+    "project": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable project name."
+    },
+    "branchName": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-zA-Z0-9._/-]+$",
+      "description": "Target git feature branch (e.g., floating-loop/task-priority)."
+    },
+    "description": {
+      "type": "string",
+      "description": "Concise summary of the feature or initiative."
+    },
+    "verifyCommand": {
+      "type": "string",
+      "description": "Default shell command executed independently by the harness to verify each story (e.g., 'npm run typecheck && npm test')."
+    },
+    "defaultModel": {
+      "type": "string",
+      "description": "Optional default model tier or identifier for stories without an explicit override."
+    },
+    "defaultEffort": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "xhigh", "max"],
+      "description": "Optional default reasoning effort level."
+    },
+    "maxRetriesPerStory": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 3,
+      "description": "Maximum verification/repair retries allowed per story before halting or escalating."
+    },
+    "userStories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "description", "acceptanceCriteria", "priority", "passes"],
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_-]*$",
+            "description": "Unique story identifier (e.g., US-001)."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Short descriptive title."
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "User story narrative ('As a ..., I want ... so that ...')."
+          },
+          "acceptanceCriteria": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Objective, verifiable criteria required to mark the story passing."
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Execution order priority (1 = highest priority)."
+          },
+          "passes": {
+            "type": "boolean",
+            "description": "Whether the story has been implemented and independently verified."
+          },
+          "notes": {
+            "type": "string",
+            "default": "",
+            "description": "Brief status notes or failure context persisted across iterations."
+          },
+          "dependsOn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": [],
+            "description": "List of prerequisite story IDs that must pass before this story starts (enables parallel DAG wave execution)."
+          },
+          "verifyCommand": {
+            "type": "string",
+            "description": "Story-specific verification command overriding the top-level verifyCommand."
+          },
+          "hat": {
+            "type": "string",
+            "enum": ["architect", "implementer", "tester", "verifier", "refactorer", "ui"],
+            "description": "Specialized role overlay prompt for this story."
+          },
+          "model": {
+            "type": "string",
+            "description": "Optional per-story model override (e.g., 'flash', 'pro', or explicit model name)."
+          },
+          "effort": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "xhigh", "max"],
+            "description": "Optional per-story reasoning effort override."
+          },
+          "filesHint": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional file/directory hints to help isolate parallel worktree workers and avoid merge overlaps."
+          }
+        }
+      }
+    }
+  }
+}

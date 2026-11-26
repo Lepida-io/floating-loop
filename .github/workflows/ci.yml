@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Configure git identity for integration tests
+        run: |
+          git config --global user.name "CI Runner"
+          git config --global user.email "ci@example.com"
+
+      - name: Validate manifests & JSON schemas
+        run: |
+          python3 - <<'EOF'
+          import json
+          from pathlib import Path
+
+          for rel in ["plugin.json", "hooks.json", "schemas/prd.schema.json", "examples/prd.json.example", ".agents/skills.json"]:
+              data = json.loads(Path(rel).read_text(encoding="utf-8"))
+              assert isinstance(data, dict), f"{rel} must be a JSON object"
+
+          plugin = json.loads(Path("plugin.json").read_text(encoding="utf-8"))
+          for field in ("name", "version", "description"):
+              assert plugin.get(field), f"plugin.json missing required field: {field}"
+
+          for skill in ("floating-loop", "floating-swarm", "prd", "prd-to-loop"):
+              p = Path("skills") / skill / "SKILL.md"
+              assert p.is_file(), f"Missing skill file: {p}"
+              text = p.read_text(encoding="utf-8")
+              assert text.startswith("---\n"), f"{p} missing YAML frontmatter"
+
+          print("Manifest and skill structure checks passed.")
+          EOF
+
+      - name: Python syntax check
+        run: python3 -m py_compile scripts/loop_core.py scripts/stop-hook.py scripts/guard-hook.py scripts/loop-ctl.py scripts/workflows/floating_swarm.py
+
+      - name: Shell syntax check
+        run: bash -n scripts/floating-loop.sh tests/run_all.sh tests/test_external_loop.sh tests/test_e2e_live.sh
+
+      - name: Run Python unit, hook, and swarm workflow tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Run external fresh-context CLI integration tests
+        run: bash tests/test_external_loop.sh

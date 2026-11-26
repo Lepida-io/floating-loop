@@ -1,0 +1,82 @@
+{
+  "project": "TaskBoard",
+  "branchName": "floating-loop/task-priority",
+  "description": "Task Priority System — store, display, edit, and filter task priorities with parallelizable UI/API tracks.",
+  "verifyCommand": "npm run typecheck && npm test",
+  "defaultModel": "gemini-4-neon-high",
+  "defaultEffort": "high",
+  "maxRetriesPerStory": 3,
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Add priority column and domain types",
+      "description": "As a developer, I need task priority persisted in storage and exposed in shared types so backend and UI stories can build on it in parallel.",
+      "acceptanceCriteria": [
+        "Add priority field ('high' | 'medium' | 'low', default 'medium') to task schema and migration",
+        "Export TaskPriority union type from shared types module",
+        "Unit tests verify default 'medium' priority on newly created tasks",
+        "Typecheck and tests pass"
+      ],
+      "priority": 1,
+      "dependsOn": [],
+      "hat": "architect",
+      "filesHint": ["src/db/", "src/types/task.ts"],
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Expose priority in task API endpoints",
+      "description": "As a client application, I need task create, update, and list endpoints to accept, validate, and filter by priority.",
+      "acceptanceCriteria": [
+        "POST /api/tasks and PATCH /api/tasks/:id validate priority against ('high' | 'medium' | 'low') and return 400 on invalid values",
+        "GET /api/tasks?priority=high returns only matching tasks",
+        "API integration tests cover create, update, invalid input, and filter query",
+        "Typecheck and tests pass"
+      ],
+      "priority": 2,
+      "dependsOn": ["US-001"],
+      "hat": "implementer",
+      "filesHint": ["src/api/tasks.ts", "tests/api/tasks.test.ts"],
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Display colored priority badge on task cards",
+      "description": "As a user, I want to see task priority at a glance on every card without hovering.",
+      "acceptanceCriteria": [
+        "Each task card renders a badge (red=high, amber=medium, slate=low)",
+        "Badge includes accessible aria-label describing the priority",
+        "Typecheck and tests pass",
+        "Verify in browser using Antigravity browser tools"
+      ],
+      "priority": 2,
+      "dependsOn": ["US-001"],
+      "hat": "ui",
+      "filesHint": ["src/components/TaskCard.tsx", "src/components/PriorityBadge.tsx"],
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004",
+      "title": "Add priority edit selector and list filter controls",
+      "description": "As a user, I want to change a task's priority and filter the board by priority with URL state persistence.",
+      "acceptanceCriteria": [
+        "Task edit modal includes priority select dropdown wired to PATCH /api/tasks/:id",
+        "Board header includes priority filter (All | High | Medium | Low) persisted in URL query param",
+        "Empty state renders clearly when no tasks match the active filter",
+        "Typecheck and tests pass",
+        "Verify in browser using Antigravity browser tools"
+      ],
+      "priority": 3,
+      "dependsOn": ["US-002", "US-003"],
+      "hat": "ui",
+      "model": "gemini-4-neon-xhigh",
+      "effort": "xhigh",
+      "filesHint": ["src/components/TaskEditModal.tsx", "src/components/TaskFilters.tsx"],
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}

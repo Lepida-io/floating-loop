@@ -1,0 +1,25 @@
+{
+  "floating-loop-stop": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "python3 ./scripts/stop-hook.py",
+        "timeout": 120
+      }
+    ]
+  },
+  "floating-loop-guard": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ./scripts/guard-hook.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

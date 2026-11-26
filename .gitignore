@@ -1,0 +1,18 @@
+# Cloned upstream reference repositories
+references/
+
+# Local loop runtime state
+.agents/floating-loop.local.md
+.floating-loop/
+progress.txt
+results.tsv
+.last-branch
+archive/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# OS / Editor
+.DS_Store
+*.swp
