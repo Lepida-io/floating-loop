@@ -5,6 +5,15 @@ All notable changes to `floating-loop` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-11-26
+
+### Fixed
+- CI Python syntax check now compiles `scripts/workflows/floating_swarm.py` with `ast.PyCF_ALLOW_TOP_LEVEL_AWAIT`. The intentional top-level `await` (Antigravity `run_workflow` injects an async runtime) no longer fails `python3 -m py_compile` on `ubuntu-latest` and `macos-latest`. The await itself is unchanged.
+
+### Changed
+- Replaced `assets/logo.svg` with a transparent 128×128 woven infinity ribbon (cyan `#38BDF8` to purple `#C084FC`). `plugin.json` `logo` stays `assets/logo.svg`.
+- README install instructions now include the partner Marketplace id `floating-loop@antigravity-plugins-partners`, the App deep link, and the Antigravity CLI download docs. License remains MIT.
+
 ## [0.1.0] - 2026-11-26
 
 ### Added
